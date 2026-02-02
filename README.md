@@ -97,7 +97,7 @@ Customers are scored and grouped into actionable segments using business-defined
 ---
 
 ## 🚀 How to Use
-1. Download the Power BI file from `/powerbi`
+1. Download the Power BI file from `PowerBI/Customer Analysis BI.pbix`
 2. Open using Power BI Desktop
 3. Explore dashboards using slicers and drill-through
 4. Replace data with your own dataset if required
