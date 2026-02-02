@@ -22,7 +22,7 @@ The goal is to help businesses **identify high-value customers, detect churn ris
 - Sales by Age Band
 - Geographic sales distribution by country
 
-📸 `PowerBI/Customer Details.png`
+📸 `PowerBI/Customer Demo.png`
 
 ---
 
