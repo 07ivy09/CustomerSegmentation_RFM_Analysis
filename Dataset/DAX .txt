@@ -1,0 +1,54 @@
+Age Band =
+SWITCH(
+TRUE(),
+[Age]>=45 && [Age] <=54,"45-54",
+[Age]>=55 && [Age] <=64,"55-64",
+[Age]>=65 && [Age] <=74,"65-74",
+[Age]>=75 && [Age] <=84,"75-84",
+[Age]>=85 && [Age] <=94,"85-94",
+">94"
+
+)
+
+Last Transaction Date = 
+MAXX(FILTER('FactInternetSales','FactInternetSales'[CustomerKey]='FactInternetSales'[CustomerKey]),'FactInternetSales'[OrderDate])
+
+Recency Value = DATEDIFF([Last Transaction Date],TODAY(),DAY)
+
+Frequency Value = DISTINCT('FactInternetSales'[SalesOrderNumber])
+
+Monetary Value =
+CALCULATE(
+SUM('FactInternetSales'[SalesAmount]),
+ALLEXPECT('FactInternetSales','FactInternetSales'[CustomerKey])
+)
+
+RFM Table = SUMMARIZE('FactInternetSales','FactInternetSales'[CustomerKey],"Recency Value",[Recency Value],"Frequency Value",[Frequency Value],"Monetary Value",[Monetary Value])
+
+Recency Score =
+SWITCH(
+True(),
+[Recency Value] <= PERCENTILE.INC('RFM Table'[Recency Value],0.20),"5",
+[Recency Value] <= PERCENTILE.INC('RFM Table'[Recency Value],0.40),"4",
+[Recency Value] <= PERCENTILE.INC('RFM Table'[Recency Value],0.60),"3",
+[Recency Value] <= PERCENTILE.INC('RFM Table'[Recency Value],0.80),"2", "1")
+
+Frequency Score =
+SWITCH(
+True(),
+[Frequency Value] <= PERCENTILE.INC('RFM Table'[Frequency Value],0.20),"1",
+[Frequency Value] <= PERCENTILE.INC('RFM Table'[Frequency Value],0.40),"2",
+[Frequency Value] <= PERCENTILE.INC('RFM Table'[Frequency Value],0.60),"3",
+[Frequency Value] <= PERCENTILE.INC('RFM Table'[Frequency Value],0.80),"4", "5")
+
+
+Monetary Score =
+SWITCH(
+True(),
+[Monetary Value] <= PERCENTILE.INC('RFM Table'[Monetary Value],0.20),"1",
+[Monetary Value] <= PERCENTILE.INC('RFM Table'[Monetary Value],0.40),"2",
+[Monetary Value] <= PERCENTILE.INC('RFM Table'[Monetary Value],0.60),"3",
+[Monetary Value] <= PERCENTILE.INC('RFM Table'[Monetary Value],0.80),"4", "5")
+
+
+RFM Score = 'RFM Table'[Recency Score] & 'RFM Table'[Frequency Score] & 'RFM Table'[Monetary Score]
