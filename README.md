@@ -32,7 +32,7 @@ The goal is to help businesses **identify high-value customers, detect churn ris
 - Recency, Frequency, and Monetary comparison across segments
 - Identification of Champions, Loyal, At Risk, and Lost customers
 
-📸 `screenshots/customer_segmentation.png`
+📸 `PowerBI/Cutomer Segmentation.png`
 
 ---
 
