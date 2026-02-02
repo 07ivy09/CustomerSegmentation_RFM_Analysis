@@ -41,7 +41,7 @@ The goal is to help businesses **identify high-value customers, detect churn ris
 - Demographics, location, sales, and segment tagging
 - Color-coded segments for quick identification
 
-📸 `screenshots/customer_details.png`
+📸 `PowerBI/Customer Details.png`
 
 ---
 
